@@ -1,21 +1,36 @@
 package com.wesleytj.bookstore.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Categoria {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
+public class Categoria implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String descricao;
-
+	
+	@OneToMany(mappedBy = "categoria")
 	private List<Livro> livros = new ArrayList<>();
-
+	
+	//Metodo construtor com Superclass
 	public Categoria() {
 		super();
 	}
-
+	
+	//Metodo construtor com as Variaveis
 	public Categoria(Integer id, String nome, String descricao) {
 		super();
 		this.id = id;
@@ -23,6 +38,7 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
+	//Métodos Getters e Setters
 	public Integer getId() {
 		return id;
 	}
@@ -54,7 +70,8 @@ public class Categoria {
 	public void setLivros(List<Livro> livros) {
 		this.livros = livros;
 	}
-
+	
+	//HASHCODE AND EQUALS
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -72,4 +89,5 @@ public class Categoria {
 		return Objects.equals(id, other.id);
 	}
 
+	
 }
